@@ -3,6 +3,7 @@
 
 #include <QStackedWidget>
 #include <QPushButton>
+#include "BookQuery.h"
 #include "baseinfo.h"
 #include "login.h"
 
@@ -13,8 +14,7 @@ public:
 
     ~Content() {};
     QStackedWidget *stack;
-//    QPushButton *AmendBtn;
-//    QPushButton *CloseBtn;
+    BookQuery *bookQuery;
     BaseInfo *bassInfo;
     Login *login;
 

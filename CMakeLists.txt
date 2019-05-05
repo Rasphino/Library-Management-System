@@ -14,8 +14,10 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Sql REQUIRED)
 
 
-set(SOURCES main.cpp baseinfo.cpp content.cpp login.cpp)
-set(HEADERS baseinfo.h content.h login.h MQListWidget.h)
+set(SOURCES main.cpp baseinfo.cpp content.cpp
+        login.cpp BookQuery.cpp)
+set(HEADERS baseinfo.h content.h login.h MQListWidget.h
+        BookQuery.h)
 set(UI)
 #set(RESOURCES)
 

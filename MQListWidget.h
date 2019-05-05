@@ -18,6 +18,7 @@ public:
 
     void setHideItem(int idx) {
         this->hideItemIdx.push_back(idx);
+        this->item(idx)->setFlags(this->item(idx)->flags() & ~Qt::ItemIsEnabled);
     }
 
 public slots:
