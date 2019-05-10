@@ -1,3 +1,4 @@
+#include <QtSql>
 #include "login.h"
 
 Login::Login(QWidget *parent) : QWidget(parent) {
@@ -46,6 +47,12 @@ void Login::slotClear() {
 
 void Login::slotLogout() {
     isLogined = false;
+    disconnect(Buttons->button(QDialogButtonBox::Ok),
+               SIGNAL (clicked()),
+               this,
+               SLOT (slotLogout())
+    );
+
     connect(Buttons->button(QDialogButtonBox::Cancel),
             SIGNAL (clicked()),
             this,
@@ -67,8 +74,6 @@ void Login::slotLogout() {
     slotClear();
     emit logoutSuccess();
 }
-
-#include <QDebug>
 
 void Login::slotAcceptLogin() {
     QString username = UserNameLineEdit->text();
@@ -104,5 +109,9 @@ void Login::slotAcceptLogin() {
 }
 
 bool Login::checkLoginInfo(const QString &username, const QString &passwd) {
-    return username == "admin" && passwd == "1234";
+    QSqlQueryModel model;
+    model.setQuery(QString("SELECT password FROM users WHERE name='%1'").arg(username));
+    if (model.record().isEmpty()) return false;
+    QString _passwd = model.record(0).value(0).toString();
+    return passwd == _passwd;
 }

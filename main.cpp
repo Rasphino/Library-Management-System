@@ -1,6 +1,6 @@
 #include "content.h"
 #include "MQListWidget.h"
-#include "BookQuery.h"
+//#include "BookQuery.h"
 #include <QApplication>
 #include <QTextCodec>
 #include <QSplitter>
@@ -14,10 +14,14 @@ int main(int argc, char *argv[]) {
     auto *list = new MQListWidget(splitterMain);
     list->insertItem(0, QObject::tr("Book Query"));
     list->insertItem(1, QObject::tr("Admin Login/out"));
-    list->insertItem(2, QObject::tr("License Manage"));
-    list->insertItem(3, QObject::tr("Base Info"));
+    list->insertItem(2, QObject::tr("Library Card Management"));
+    list->insertItem(3, QObject::tr("Borrow Management"));
+    list->insertItem(4, QObject::tr("Return Management"));
+    list->insertItem(5, QObject::tr("Book Management"));
     list->setHideItem(2);
     list->setHideItem(3);
+    list->setHideItem(4);
+    list->setHideItem(5);
 
 
     auto *content = new Content(splitterMain);

@@ -2,6 +2,8 @@
 #define LIBRARY_MANAGEMENT_BOOKQUERY_H
 
 #include <QtWidgets>
+#include <QtSql>
+
 
 class BookQuery : public QWidget {
 Q_OBJECT
@@ -13,7 +15,8 @@ public:
 signals:
 
 public slots:
-//    void slotClear();
+    void slotClear();
+    void slotQuery();
 
 private:
     QLabel *BookTypeLabel;
@@ -31,6 +34,9 @@ private:
     QLineEdit *AuthorLineEdit;
     QLineEdit *PriceLineEditL;
     QLineEdit *PriceLineEditH;
+
+    QTableView *BookView;
+    QSqlTableModel *BookModel;
 
     QDialogButtonBox *Buttons;
 

@@ -13,12 +13,11 @@ find_package(Qt5Widgets REQUIRED)
 find_package(Qt5Gui REQUIRED)
 find_package(Qt5Sql REQUIRED)
 
-
 set(SOURCES main.cpp baseinfo.cpp content.cpp
         login.cpp BookQuery.cpp)
 set(HEADERS baseinfo.h content.h login.h MQListWidget.h
-        BookQuery.h)
-set(UI)
+        BookQuery.h DBOperation.h)
+#set(UI)
 #set(RESOURCES)
 
 add_executable(library_management

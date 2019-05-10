@@ -1,4 +1,5 @@
 #include "BookQuery.h"
+#include "DBOperation.h"
 #include <QSizePolicy>
 
 BookQuery::BookQuery(QWidget *parent) : QWidget(parent) {
@@ -36,6 +37,22 @@ BookQuery::BookQuery(QWidget *parent) : QWidget(parent) {
             SLOT (slotQuery())
     );
 
+
+    qDebug() << initDb();
+
+    BookModel = new QSqlTableModel;
+    BookModel->setTable("books");
+    BookModel->setSort(1, Qt::AscendingOrder);
+
+    BookView = new QTableView;
+    BookView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    BookView->setModel(BookModel);
+    BookView->setSortingEnabled(true);
+    BookView->setSelectionMode(QAbstractItemView::SingleSelection);
+    BookView->setItemDelegate(new QSqlRelationalDelegate(BookView));
+    BookView->show();
+
+
     auto *mainLayout = new QGridLayout(this);
     mainLayout->setMargin(15);
     mainLayout->setSpacing(10);
@@ -55,6 +72,8 @@ BookQuery::BookQuery(QWidget *parent) : QWidget(parent) {
     mainLayout->addWidget(PriceLineEditL, 1, 5);
     mainLayout->addWidget(PriceLineEditH, 1, 6);
 
+    mainLayout->addWidget(BookView, 2, 0, 1, 7);
+
     mainLayout->setColumnStretch(1, 2);
     mainLayout->setColumnStretch(3, 2);
     mainLayout->setColumnStretch(5, 1);
@@ -62,4 +81,41 @@ BookQuery::BookQuery(QWidget *parent) : QWidget(parent) {
 
     mainLayout->addWidget(Buttons, 3, 5, 1, 2);
 
+}
+
+void BookQuery::slotClear() {
+    BookTypeLineEdit->clear();
+    BookNameLineEdit->clear();
+    PublisherLineEdit->clear();
+    YearLineEditL->clear();
+    YearLineEditH->clear();
+    AuthorLineEdit->clear();
+    PriceLineEditL->clear();
+    PriceLineEditH->clear();
+    BookModel->setFilter("");
+    BookModel->select();
+}
+
+void BookQuery::slotQuery() {
+    QString filter = "1=1 ";
+    QString type = BookTypeLineEdit->text();
+    QString name = BookNameLineEdit->text();
+    QString publisher = PublisherLineEdit->text();
+    QString author = AuthorLineEdit->text();
+    QString yearL = YearLineEditL->text();
+    QString yearH = YearLineEditH->text();
+    QString priceL = PriceLineEditL->text();
+    QString priceH = PriceLineEditH->text();
+    if (type != "") filter.append(QString("and booktype='%1' ").arg(type));
+    if (name != "") filter.append(QString("and bookname='%1' ").arg(name));
+    if (publisher != "") filter.append(QString("and publisher='%1' ").arg(publisher));
+    if (author != "") filter.append(QString("and author='%1' ").arg(author));
+    if (yearL != "") filter.append(QString("and year>=%1 ").arg(yearL));
+    if (yearH != "") filter.append(QString("and year<=%1 ").arg(yearH));
+    if (priceL != "") filter.append(QString("and price>=money(%1) ").arg(priceL));
+    if (priceH != "") filter.append(QString("and price<=money(%1) ").arg(priceH));
+
+    BookModel->setFilter(filter);
+    BookModel->select();
+    qDebug() << BookModel->filter() << endl;
 }
