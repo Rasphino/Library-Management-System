@@ -14,9 +14,9 @@ find_package(Qt5Gui REQUIRED)
 find_package(Qt5Sql REQUIRED)
 
 set(SOURCES main.cpp baseinfo.cpp content.cpp
-        login.cpp BookQuery.cpp)
+        login.cpp BookQuery.cpp CardManagement.cpp Borrow.cpp)
 set(HEADERS baseinfo.h content.h login.h MQListWidget.h
-        BookQuery.h DBOperation.h)
+        BookQuery.h DBOperation.h CardManagement.h ReadOnlyDelegate.h Borrow.h)
 #set(UI)
 #set(RESOURCES)
 

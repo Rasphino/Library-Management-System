@@ -42,7 +42,6 @@ BookQuery::BookQuery(QWidget *parent) : QWidget(parent) {
 
     BookModel = new QSqlTableModel;
     BookModel->setTable("books");
-    BookModel->setSort(1, Qt::AscendingOrder);
 
     BookView = new QTableView;
     BookView->setEditTriggers(QAbstractItemView::NoEditTriggers);

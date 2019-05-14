@@ -6,7 +6,7 @@ BaseInfo::BaseInfo(QWidget *parent) : QWidget(parent) {
     UserNameLineEdit = new QLineEdit;
     NameLabel = new QLabel(tr("Name: "));
     NameLineEdit = new QLineEdit;
-    SexLabel = new QLabel("Sex: ");
+    SexLabel = new QLabel(tr("Sex: "));
     SexComboBox = new QComboBox;
     SexComboBox->addItem(tr("Female"));
     SexComboBox->addItem(tr("Male"));
@@ -44,5 +44,4 @@ BaseInfo::BaseInfo(QWidget *parent) : QWidget(parent) {
     mainLayout->setSpacing(10);
     mainLayout->addLayout(LeftLayout, 0, 0);
     mainLayout->addLayout(RightLayout, 0, 1);
-//    mainLayout->setSizeConstraint(QLayout::SetFixedSize);
 }

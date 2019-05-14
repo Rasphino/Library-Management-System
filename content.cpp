@@ -7,8 +7,11 @@ Content::Content(QWidget *parent) : QFrame(parent) {
     bookQuery = new BookQuery;
     bassInfo = new BaseInfo;
     login = new Login;
+    cardManagement = new CardManagement;
+
     stack->addWidget(bookQuery);
     stack->addWidget(login);
+    stack->addWidget(cardManagement);
     stack->addWidget(bassInfo);
     stack->addWidget(bassInfo);
 

@@ -6,6 +6,7 @@
 #include "BookQuery.h"
 #include "baseinfo.h"
 #include "login.h"
+#include "CardManagement.h"
 
 class Content : public QFrame {
 Q_OBJECT
@@ -17,6 +18,7 @@ public:
     BookQuery *bookQuery;
     BaseInfo *bassInfo;
     Login *login;
+    CardManagement *cardManagement;
 
 };
 
