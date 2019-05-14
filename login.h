@@ -34,7 +34,6 @@ private:
     QLineEdit *PasswdLineEdit;
     QDialogButtonBox *Buttons;
     QLabel *LoginInfoLabel;
-    bool isLogined = false;
 
     bool checkLoginInfo(const QString &username, const QString &passwd);
 

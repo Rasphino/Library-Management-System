@@ -46,7 +46,6 @@ void Login::slotClear() {
 }
 
 void Login::slotLogout() {
-    isLogined = false;
     disconnect(Buttons->button(QDialogButtonBox::Ok),
                SIGNAL (clicked()),
                this,
@@ -79,7 +78,6 @@ void Login::slotAcceptLogin() {
     QString username = UserNameLineEdit->text();
     QString password = PasswdLineEdit->text();
     if (checkLoginInfo(username, password)) {
-        isLogined = true;
         UserNameLabel->hide();
         UserNameLineEdit->hide();
         PasswdLabel->hide();
@@ -110,6 +108,7 @@ void Login::slotAcceptLogin() {
 
 bool Login::checkLoginInfo(const QString &username, const QString &passwd) {
     QSqlQueryModel model;
+    if (username.isEmpty()) return false;
     model.setQuery(QString("SELECT password FROM users WHERE name='%1'").arg(username));
     if (model.record().isEmpty()) return false;
     QString _passwd = model.record(0).value(0).toString();
