@@ -48,6 +48,7 @@ BookQuery::BookQuery(QWidget *parent) : QWidget(parent) {
     BookView->setModel(BookModel);
     BookView->setSortingEnabled(true);
     BookView->setSelectionMode(QAbstractItemView::SingleSelection);
+    BookView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     BookView->setItemDelegate(new QSqlRelationalDelegate(BookView));
     BookView->show();
 
@@ -117,4 +118,8 @@ void BookQuery::slotQuery() {
     BookModel->setFilter(filter);
     BookModel->select();
     qDebug() << BookModel->filter() << endl;
+}
+
+void BookQuery::slotUpdate() {
+    BookModel->select();
 }

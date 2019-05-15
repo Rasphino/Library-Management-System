@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    auto *splitterMain = new QSplitter(Qt::Horizontal, 0);
+    auto *splitterMain = new QSplitter(Qt::Horizontal, nullptr);
     splitterMain->setOpaqueResize(true);
     auto *list = new MQListWidget(splitterMain);
     list->insertItem(0, QObject::tr("Book Query"));

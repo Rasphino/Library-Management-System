@@ -8,16 +8,30 @@ Content::Content(QWidget *parent) : QFrame(parent) {
     bassInfo = new BaseInfo;
     login = new Login;
     cardManagement = new CardManagement;
+    borrow = new Borrow;
+    returnB = new Return;
 
     stack->addWidget(bookQuery);
     stack->addWidget(login);
     stack->addWidget(cardManagement);
-    stack->addWidget(bassInfo);
-    stack->addWidget(bassInfo);
+    stack->addWidget(borrow);
+    stack->addWidget(returnB);
+
+    connect(stack,
+            SIGNAL(currentChanged(int)),
+            this,
+            SLOT(slotUpdate())
+    );
 
     auto *RightLayout = new QVBoxLayout(this);
     RightLayout->setMargin(10);
     RightLayout->setSpacing(6);
     RightLayout->addWidget(stack);
+
+}
+
+void Content::slotUpdate() {
+    bookQuery->slotUpdate();
+    borrow->slotUpdate();
 
 }

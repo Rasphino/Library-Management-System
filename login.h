@@ -17,6 +17,13 @@ public:
 
     ~Login() {};
 
+
+    static QString User;
+
+    static QString getUser() {
+        return User;
+    }
+
 signals:
     void loginSuccess();
     void logoutSuccess();

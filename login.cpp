@@ -1,6 +1,8 @@
 #include <QtSql>
 #include "login.h"
 
+QString Login::User;
+
 Login::Login(QWidget *parent) : QWidget(parent) {
     UserNameLabel = new QLabel(tr("Username: "));
     UserNameLineEdit = new QLineEdit("admin");
@@ -72,6 +74,7 @@ void Login::slotLogout() {
     LoginInfoLabel->setText("");
     slotClear();
     emit logoutSuccess();
+    User = "";
 }
 
 void Login::slotAcceptLogin() {
@@ -101,6 +104,7 @@ void Login::slotAcceptLogin() {
                 SLOT (slotLogout())
         );
         emit loginSuccess();
+        User = username;
     } else {
         LoginInfoLabel->setText(tr("Login failed!"));
     }

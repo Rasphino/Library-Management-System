@@ -12,6 +12,8 @@ public:
 
     ~BookQuery() {}
 
+    void slotUpdate();
+
 signals:
 
 public slots:

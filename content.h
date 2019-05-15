@@ -7,9 +7,17 @@
 #include "baseinfo.h"
 #include "login.h"
 #include "CardManagement.h"
+#include "Borrow.h"
+#include "Return.h"
 
 class Content : public QFrame {
 Q_OBJECT
+
+signals:
+
+public slots:
+    void slotUpdate();
+
 public:
     explicit Content(QWidget *parent = nullptr);
 
@@ -19,7 +27,8 @@ public:
     BaseInfo *bassInfo;
     Login *login;
     CardManagement *cardManagement;
-
+    Borrow *borrow;
+    Return *returnB;
 };
 
 #endif

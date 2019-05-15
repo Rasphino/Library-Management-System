@@ -5,7 +5,7 @@
 #include "CardManagement.h"
 #include "ReadOnlyDelegate.h"
 
-CardManagement::CardManagement(QWidget *parent) {
+CardManagement::CardManagement(QWidget *parent) : QWidget(parent) {
     CardModel = new QSqlRelationalTableModel;
     CardModel->setTable("librarycard");
     CardModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
@@ -15,6 +15,7 @@ CardManagement::CardManagement(QWidget *parent) {
     CardView->setSortingEnabled(true);
     CardView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     CardView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    CardView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     CardView->setItemDelegate(new QSqlRelationalDelegate(CardView));
     CardView->setItemDelegateForColumn(0, new ReadOnlyDelegate(CardView));
     CardView->show();
