@@ -10,12 +10,14 @@ Content::Content(QWidget *parent) : QFrame(parent) {
     cardManagement = new CardManagement;
     borrow = new Borrow;
     returnB = new Return;
+    book = new Book;
 
     stack->addWidget(bookQuery);
     stack->addWidget(login);
     stack->addWidget(cardManagement);
     stack->addWidget(borrow);
     stack->addWidget(returnB);
+    stack->addWidget(book);
 
     connect(stack,
             SIGNAL(currentChanged(int)),
@@ -33,5 +35,6 @@ Content::Content(QWidget *parent) : QFrame(parent) {
 void Content::slotUpdate() {
     bookQuery->slotUpdate();
     borrow->slotUpdate();
-
+    returnB->slotUpdate();
+    book->slotUpdate();
 }

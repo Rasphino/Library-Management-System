@@ -61,3 +61,9 @@ void Return::slotDeleteEntry() {
                                   "FROM libraryrecords as r, books as b, librarycard as c "
                                   "WHERE r.bookno=b.bookno AND r.cardno=c.cardno AND returndate IS NULL;"));
 }
+
+void Return::slotUpdate() {
+    RecordModel->setQuery(QString("SELECT fid,c.cardno,name,b.bookno,bookname,lentdate,operator "
+                                  "FROM libraryrecords as r, books as b, librarycard as c "
+                                  "WHERE r.bookno=b.bookno AND r.cardno=c.cardno AND returndate IS NULL;"));
+}

@@ -9,6 +9,7 @@
 #include "CardManagement.h"
 #include "Borrow.h"
 #include "Return.h"
+#include "Book.h"
 
 class Content : public QFrame {
 Q_OBJECT
@@ -29,6 +30,7 @@ public:
     CardManagement *cardManagement;
     Borrow *borrow;
     Return *returnB;
+    Book *book;
 };
 
 #endif

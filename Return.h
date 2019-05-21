@@ -15,6 +15,7 @@ signals:
 
 public slots:
     void slotDeleteEntry();
+    void slotUpdate();
 
 private:
     QTableView *RecordView;
