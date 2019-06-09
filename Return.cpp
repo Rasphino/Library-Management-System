@@ -43,8 +43,18 @@ void Return::slotDeleteEntry() {
                                                       QMessageBox::No)) {
             for (const auto &item : selection) {
                 int idx = item.data().value<int>();
+
+                QSqlQueryModel model;
+                model.setQuery(
+                        QString("SELECT bookno FROM libraryrecords WHERE fid='%1'").arg(idx));
+                if (model.record().isEmpty())
+                    QMessageBox::warning(this, tr("Error"), model.lastError().text(),
+                                         QMessageBox::Yes, QMessageBox::Yes);
+                int bookno = model.record(0).value(0).toInt();
+
                 QDateTime time = QDateTime::currentDateTime();
                 QSqlQuery q;
+
                 q.prepare("UPDATE libraryrecords SET returndate=:returndate WHERE fid=:fid");
                 q.bindValue(":returndate", time);
                 q.bindValue(":fid", idx);
@@ -54,6 +64,9 @@ void Return::slotDeleteEntry() {
                 else
                     QMessageBox::warning(this, tr("Error"), q.lastError().text(),
                                          QMessageBox::Yes, QMessageBox::Yes);
+                q.prepare(QString("UPDATE books SET storage=storage+1 WHERE bookno='%1'").arg(
+                        bookno));
+                q.exec();
             }
         }
     }
