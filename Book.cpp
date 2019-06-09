@@ -61,12 +61,14 @@ void Book::slotDeleteEntry() {
     if (!selection.isEmpty()) {
         if (QMessageBox::Yes == QMessageBox::question(this,
                                                       tr("Really?"),
-                                                      tr("Do you want to delete that?"),
+                                                      tr("Do you want to delete that?\nThis will delete all records with this book!"),
                                                       QMessageBox::Yes | QMessageBox::No,
                                                       QMessageBox::No)) {
             for (const auto &item : selection) {
                 int idx = item.data().value<int>();
                 QSqlQuery q;
+                q.exec(QString("DELETE FROM libraryrecords WHERE bookno=%1").arg(idx));
+
                 if (q.exec(QString("DELETE FROM books WHERE bookno=%1").arg(idx)))
                     QMessageBox::information(this, tr("Success"), tr("Delete book successfully!"),
                                              QMessageBox::Yes, QMessageBox::Yes);

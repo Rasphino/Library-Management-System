@@ -107,7 +107,7 @@ bool addUser(QSqlQuery &q, const QString &Password, const QString &Name, const Q
 QSqlError initDb() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL");
     db.setHostName("localhost");
-    db.setDatabaseName("book");
+    db.setDatabaseName("library");
     db.setUserName("rasp");
     db.setPassword("");
 
@@ -141,8 +141,8 @@ QSqlError initDb() {
             "insert into librarycard(name, department, cardtype, updatetime) "
             "VALUES (?, ?, ?, ?);")))
         qDebug() << q.lastError();
-    addLibraryCard(q, "张鑫", "ckc", "normal", "2019-04-08 00:00:00");
-    addLibraryCard(q, "张驰", "pku", "normal", "2018-04-08 00:00:00");
+    addLibraryCard(q, "张鑫", "ckc", "本科生", "2019-04-08 00:00:00");
+    addLibraryCard(q, "张驰", "pku", "博士生", "2018-04-08 00:00:00");
 
     if (!q.prepare(QLatin1String(
             "insert into books(BookType, BookName, Publisher, Year, "

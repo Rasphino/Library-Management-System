@@ -3,7 +3,7 @@
 //
 
 #include "Borrow.h"
-#include "login.h"
+#include "Login.h"
 
 Borrow::Borrow(QWidget *parent) : QWidget(parent) {
 

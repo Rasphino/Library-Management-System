@@ -1,11 +1,10 @@
-#include "content.h"
+#include "Content.h"
 
 Content::Content(QWidget *parent) : QFrame(parent) {
     stack = new QStackedWidget(this);
     stack->setFrameStyle(QFrame::Panel);
 
     bookQuery = new BookQuery;
-    bassInfo = new BaseInfo;
     login = new Login;
     cardManagement = new CardManagement;
     borrow = new Borrow;

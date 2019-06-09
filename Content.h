@@ -4,8 +4,7 @@
 #include <QStackedWidget>
 #include <QPushButton>
 #include "BookQuery.h"
-#include "baseinfo.h"
-#include "login.h"
+#include "Login.h"
 #include "CardManagement.h"
 #include "Borrow.h"
 #include "Return.h"
@@ -25,7 +24,6 @@ public:
     ~Content() {};
     QStackedWidget *stack;
     BookQuery *bookQuery;
-    BaseInfo *bassInfo;
     Login *login;
     CardManagement *cardManagement;
     Borrow *borrow;

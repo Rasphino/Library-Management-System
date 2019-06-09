@@ -106,10 +106,10 @@ void BookQuery::slotQuery() {
     QString yearH = YearLineEditH->text();
     QString priceL = PriceLineEditL->text();
     QString priceH = PriceLineEditH->text();
-    if (type != "") filter.append(QString("and booktype='%1' ").arg(type));
-    if (name != "") filter.append(QString("and bookname='%1' ").arg(name));
-    if (publisher != "") filter.append(QString("and publisher='%1' ").arg(publisher));
-    if (author != "") filter.append(QString("and author='%1' ").arg(author));
+    if (type != "") filter.append(QString("and booktype LIKE '%%1%' ").arg(type));
+    if (name != "") filter.append(QString("and bookname LIKE '%%1%' ").arg(name));
+    if (publisher != "") filter.append(QString("and publisher LIKE '%%1%' ").arg(publisher));
+    if (author != "") filter.append(QString("and author LIKE '%%1%' ").arg(author));
     if (yearL != "") filter.append(QString("and year>=%1 ").arg(yearL));
     if (yearH != "") filter.append(QString("and year<=%1 ").arg(yearH));
     if (priceL != "") filter.append(QString("and price>=money(%1) ").arg(priceL));

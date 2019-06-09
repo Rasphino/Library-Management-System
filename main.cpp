@@ -1,4 +1,4 @@
-#include "content.h"
+#include "Content.h"
 #include "MQListWidget.h"
 //#include "BookQuery.h"
 #include <QApplication>
