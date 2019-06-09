@@ -1,3 +1,5 @@
+#include <fstream>
+#include <sstream>
 #include "Book.h"
 #include "ReadOnlyDelegate.h"
 
@@ -48,12 +50,21 @@ Book::Book(QWidget *parent) : QWidget(parent) {
             SLOT(slotUpdate())
     );
 
+    AddFromFileButton = new QPushButton(tr("Add from file..."));
+    connect(AddFromFileButton,
+            SIGNAL(clicked()),
+            this,
+            SLOT(slotAddFromFile())
+    );
+
+
     auto *mainLayout = new QGridLayout(this);
     mainLayout->setMargin(15);
     mainLayout->setSpacing(10);
-    mainLayout->addWidget(BookView, 0, 0, 1, 2);
-    mainLayout->addWidget(Buttons, 1, 0);
-    mainLayout->addWidget(CommitButtons, 1, 1);
+    mainLayout->addWidget(BookView, 0, 0, 1, 5);
+    mainLayout->addWidget(Buttons, 1, 0, 1, 2);
+    mainLayout->addWidget(AddFromFileButton, 1, 2, 1, 1);
+    mainLayout->addWidget(CommitButtons, 1, 3, 1, 2);
 }
 
 void Book::slotDeleteEntry() {
@@ -100,6 +111,50 @@ void Book::slotCommit() {
 }
 
 void Book::slotUpdate() {
+    BookModel->select();
+}
+
+void Book::slotAddFromFile() {
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"), "", tr("All Files (*)"));
+    if (fileName.isEmpty()) {
+        QMessageBox::information(this, tr("Unable to open file"), tr("No selected file"));
+        return;
+    } else {
+        qDebug() << fileName;
+        std::ifstream in;
+        in.open(fileName.toStdString(), std::ios::in);
+
+        std::string line;
+        std::string delimiter = " | ";
+
+
+        while (std::getline(in, line)) {
+            size_t pos = 0;
+            std::string token;
+            std::vector<QString> tokens;
+            while ((pos = line.find(delimiter)) != std::string::npos) {
+                token = line.substr(0, pos);
+                tokens.push_back(token.c_str());
+                line.erase(0, pos + delimiter.length());
+            }
+            tokens.push_back(line.c_str());
+            QDateTime time = QDateTime::currentDateTime();
+
+            QSqlQuery q;
+            if (!q.prepare(QLatin1String(
+                    "insert into books(BookType, BookName, Publisher, Year, "
+                    "Author, Price, Total, Storage, UpdateTime) "
+                    "values(?, ?, ?, ?, ?, ?, ?, ?, ?);")))
+                qDebug() << q.lastError();
+            if (!addBook(q, tokens.at(0), tokens.at(1), tokens.at(2), tokens.at(3).toInt(),
+                         tokens.at(4), tokens.at(5).toDouble(), tokens.at(6).toInt(),
+                         tokens.at(7).toInt(), time))
+                QMessageBox::warning(this, tr("Error"), q.lastError().text(),
+                                     QMessageBox::Yes, QMessageBox::Yes);
+        }
+    }
+    QMessageBox::information(this, tr("Success"), tr("Add book successfully!"),
+                             QMessageBox::Yes, QMessageBox::Yes);
     BookModel->select();
 }
 

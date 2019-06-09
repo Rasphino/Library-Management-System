@@ -18,6 +18,7 @@ public slots:
     void slotAddEntry();
     void slotCommit();
     void slotUpdate();
+    void slotAddFromFile();
 
 private:
     QLineEdit *SearchLineEdit;
@@ -25,6 +26,7 @@ private:
     QSqlTableModel *BookModel;
     QDialogButtonBox *Buttons;
     QDialogButtonBox *CommitButtons;
+    QPushButton *AddFromFileButton;
 };
 
 class NewBookDialog : public QDialog {
